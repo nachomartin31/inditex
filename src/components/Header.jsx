@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { filterMobilesList } from '../redux/slices/filteredMobilesList';
 import { loadMobilesList } from '../redux/slices/mobilesList';
+
+import '../styles/header.scss';
 
 function Header() {
   const mobilesList = useSelector((state) => state.mobilesList.mobilesList);
@@ -32,7 +35,7 @@ function Header() {
   };
   return (
     <header>
-      <h1>Alten Phones</h1>
+      <Link to="/"><h1>Alten Phones</h1></Link>
       <input type="text" placeholder="Buscar" onChange={(evt) => filterMobiles(evt.target.value)} />
     </header>
   );
