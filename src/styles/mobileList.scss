@@ -1,0 +1,15 @@
+a{
+    width: fit-content;
+}
+.mobileList{
+    width: 90%;
+    margin: 2vh auto;
+}
+.mobileList__heading{
+    text-align: center;
+    padding: 2vh 0;
+}
+.mobileList__content{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
