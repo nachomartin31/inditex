@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,9 @@ import { loadMobilesList } from '../redux/slices/mobilesList';
 import '../styles/header.scss';
 
 function Header() {
+  const [searching, setSearching] = useState('');
   const mobilesList = useSelector((state) => state.mobilesList.mobilesList);
+  const filteredMobilesList = useSelector((state) => state.filteredMobilesList.filteredMobilesList);
   const dispatch = useDispatch();
   const breadcrumbs = useBreadcrumbs();
   async function loadMobiles() {
@@ -25,14 +27,14 @@ function Header() {
   }, [mobilesList]);
 
   const filterMobiles = (query) => {
-    const filteredMobilesList = mobilesList.filter(
+    const mobilesToFilter = mobilesList.filter(
       ({ brand, model }) => brand
         .toLowerCase()
         .includes(query.toLowerCase())
         || model.toLowerCase()
           .includes(query.toLowerCase())
     );
-    dispatch(filterMobilesList(filteredMobilesList));
+    dispatch(filterMobilesList(mobilesToFilter));
   };
 
   const dynamicMobileBreadCrumbs = (match, breadcrumb) => {
@@ -45,10 +47,19 @@ function Header() {
   return (
     <header>
       <Link to="/"><h1>Alten Phones</h1></Link>
-      <div>
+      <nav>
         {breadcrumbs.map(({ match, breadcrumb }) => dynamicMobileBreadCrumbs(match, breadcrumb))}
+      </nav>
+      <div>
+        <input type="text" placeholder="Buscar" value={searching} onChange={(evt) => { filterMobiles(evt.target.value); setSearching(evt.target.value); }} />
+        {searching
+          ? (
+            <ul className="mobilesList">
+              {filteredMobilesList.map((mobile) => <Link className="mobilesList__Link" key={mobile.id} to={`/${mobile.id}`} onClick={() => { setSearching(''); }}>{mobile.model}</Link>)}
+            </ul>
+          )
+          : null}
       </div>
-      <input type="text" placeholder="Buscar" onChange={(evt) => filterMobiles(evt.target.value)} />
     </header>
   );
 }
