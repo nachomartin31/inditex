@@ -1,5 +1,6 @@
 a{
     width: fit-content;
+    text-decoration: none;
 }
 .mobileList{
     width: 90%;
@@ -11,5 +12,25 @@ a{
 }
 .mobileList__content{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    a{
+    margin: 1vh auto;
+    padding: 1vh;
+    }
+}
+
+@media (min-width:480px) {
+    .mobileList__content{
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+}
+@media (min-width:768px) {
+    .mobileList__content{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width:1080px) {
+    .mobileList__content{
+        grid-template-columns: repeat(4, 1fr);
+    }
 }

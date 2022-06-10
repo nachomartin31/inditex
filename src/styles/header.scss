@@ -3,11 +3,44 @@ header{
     height: 6vh;
     padding: 2vh 1vh;
     align-items: center;
+    justify-content: space-around;
+    background-color: #A4C7E0;
+
     a{
         text-decoration: none;
         h1{
             font-size: 2vh;
         }
     }
-
+    input[type="text"]{
+        position: relative;
+        &:focus{
+            outline: none;
+        }
+    }
+    .breadcrumbs{
+        &::after{
+            content: " > ";
+        }
+        &:last-of-type{
+            &::after{
+                content: "";
+            }
+        }
+    }
+    .mobilesList{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        height: 10vh;
+        overflow: auto;
+        background-color: #fff;
+        &::-webkit-scrollbar{
+            width: 8px;
+          }
+        
+          &::-webkit-scrollbar-thumb{
+            background-color: #fff;
+          }
+    }
 }
