@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import '../styles/mobileminiature.scss';
+import '../styles/mobileMiniature.scss';
 
 function MobileMiniature({ mobile }) {
   return (
