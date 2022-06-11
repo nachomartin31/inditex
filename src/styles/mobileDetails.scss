@@ -1,0 +1,58 @@
+@use './globals' as *;
+
+.mobile-details{
+    width: 90%;
+    margin: 0 auto;
+    padding: 2vh 0;
+
+    &__heading{
+        text-align: center;
+    }
+
+    &__wrapper{
+        display: grid;
+        
+    }
+    &__image{
+        width: 50%;
+        margin: 0 auto;
+    }
+    &__info{
+        margin: 0 auto;
+    }
+    &__specs{
+        background-color: $blue;
+        padding: 2vh;
+        border-radius: 0.5rem;
+    }
+    &__value{
+        font-weight: 700;
+        line-height: 3vh;
+    }
+   &__camera{
+    display: flex;
+        .mobile-details__camera--key{
+            font-weight: 700;
+        }
+        .mobile-details__camera--value{
+            font-weight: 400;
+            margin-right: 5px;
+            &::after{
+                content: ", ";
+            }
+            &:last-of-type::after{
+                content: "";
+            }
+
+        }
+
+    }
+}
+
+@media (min-width: $desktop) {
+    .mobile-details{
+        &__wrapper{
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
