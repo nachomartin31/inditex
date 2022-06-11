@@ -7,12 +7,10 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <main>
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/:id" element={<Details />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="/:id" element={<Details />} />
+      </Routes>
     </BrowserRouter>
   );
 }
