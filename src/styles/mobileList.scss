@@ -1,0 +1,38 @@
+@use './globals' as *;
+
+a{
+    width: fit-content;
+    text-decoration: none;
+}
+.mobileList{
+    width: 90%;
+    margin: 2vh auto;
+}
+.mobileList__heading{
+    text-align: center;
+    padding: 2vh 0;
+}
+.mobileList__content{
+    display: grid;
+    a{
+    margin: 1vh auto;
+    padding: 1vh;
+    }
+}
+
+@media (min-width: $mobile) {
+    .mobileList__content{
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+}
+@media (min-width: $tablet) {
+    .mobileList__content{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width: $desktop) {
+    .mobileList__content{
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

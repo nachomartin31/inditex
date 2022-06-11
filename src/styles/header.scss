@@ -1,0 +1,70 @@
+@use './globals' as *;
+
+header{
+    display: flex;
+    height: 6vh;
+    padding: 2vh 1vh;
+    align-items: center;
+    justify-content: space-around;
+    background-color: $blue;
+    font-size: 1.5vh;
+
+    a{
+        text-decoration: none;
+        h1{
+            font-size: 2vh;
+        }
+    }
+    input[type="text"]{
+        position: relative;
+        width: 20vw;
+        &:focus{
+            outline: none;
+        }
+    }
+    .breadcrumbs{
+        
+        &::after{
+            content: "   >   ";
+        }
+        &:last-of-type{
+            &::after{
+                content: "";
+            }
+        }
+    }
+    .mobilesList{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        height: 10vh;
+        overflow: auto;
+        background-color: #fff;
+        width: 20vw;
+        &::-webkit-scrollbar{
+            width: 1px;
+          }
+        
+          &::-webkit-scrollbar-thumb{
+            background-color: #fff;
+          }
+          a{
+            width: 100%;
+            text-align: center;
+            &:hover{
+                background-color: $blue;
+            }
+          }
+    }
+}
+
+@media (min-width: $tablet) {
+    header{
+    font-size: 1.8vh;
+    }
+}
+@media (min-width: $desktop) {
+    header{
+    font-size: 2vh;
+    }
+}
