@@ -7,18 +7,26 @@ a{
 .mobileList{
     width: 90%;
     margin: 2vh auto;
-}
-.mobileList__heading{
-    text-align: center;
-    padding: 2vh 0;
-}
-.mobileList__content{
-    display: grid;
-    a{
-    margin: 1vh auto;
-    padding: 1vh;
+
+    &__heading{
+        text-align: center;
+        padding: 2vh 0;
+    }
+
+    &__content{
+        display: grid;
+        a{
+        margin: 1vh auto;
+        padding: 1vh;
+        }
+    }
+
+    &__pagination{
+        width: fit-content;
+        margin: 0 auto;
     }
 }
+
 
 @media (min-width: $mobile) {
     .mobileList__content{
