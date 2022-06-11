@@ -44,8 +44,8 @@ function MobilesList() {
             onChange={(event, value) => handlePaginationChange(event, value)}
             page={currentPage}
             size="small"
-            showFirstButton="true"
-            showLastButton="true"
+            showFirstButton
+            showLastButton
             color="primary"
           />
         </Stack>
