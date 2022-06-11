@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { loadCurrentMobile } from '../redux/slices/currentMobile';
+import { addToCart } from '../redux/slices/cartSlice';
 import '../styles/mobileDetails.scss';
 
 function Details() {
@@ -33,7 +34,7 @@ function Details() {
       storageCode: storage
     };
     const { data } = await axios.post(`${process.env.REACT_APP_URL}api/cart`, selectedMobile);
-    return data;
+    dispatch(addToCart(data));
   };
 
   return (
