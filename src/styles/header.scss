@@ -1,10 +1,13 @@
+@use './globals' as *;
+
 header{
     display: flex;
     height: 6vh;
     padding: 2vh 1vh;
     align-items: center;
     justify-content: space-around;
-    background-color: #A4C7E0;
+    background-color: $blue;
+    font-size: 1.5vh;
 
     a{
         text-decoration: none;
@@ -14,13 +17,15 @@ header{
     }
     input[type="text"]{
         position: relative;
+        width: 20vw;
         &:focus{
             outline: none;
         }
     }
     .breadcrumbs{
+        
         &::after{
-            content: " > ";
+            content: "   >   ";
         }
         &:last-of-type{
             &::after{
@@ -35,12 +40,31 @@ header{
         height: 10vh;
         overflow: auto;
         background-color: #fff;
+        width: 20vw;
         &::-webkit-scrollbar{
-            width: 8px;
+            width: 1px;
           }
         
           &::-webkit-scrollbar-thumb{
             background-color: #fff;
           }
+          a{
+            width: 100%;
+            text-align: center;
+            &:hover{
+                background-color: $blue;
+            }
+          }
+    }
+}
+
+@media (min-width: $tablet) {
+    header{
+    font-size: 1.8vh;
+    }
+}
+@media (min-width: $desktop) {
+    header{
+    font-size: 2vh;
     }
 }
