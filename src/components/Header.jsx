@@ -12,6 +12,7 @@ function Header() {
   const [searching, setSearching] = useState('');
   const mobilesList = useSelector((state) => state.mobilesList.mobilesList);
   const filteredMobilesList = useSelector((state) => state.filteredMobilesList.filteredMobilesList);
+  const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
   const breadcrumbs = useBreadcrumbs();
   async function loadMobiles() {
@@ -60,6 +61,9 @@ function Header() {
           )
           : null}
       </div>
+      {cart.count
+        ? <p>{cart.count}</p>
+        : null}
     </header>
   );
 }

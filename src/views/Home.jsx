@@ -3,10 +3,10 @@ import '../styles/mobileList.scss';
 
 function Home() {
   return (
-    <div>
+    <main>
       <h2 className="mobileList__heading">MobilesList</h2>
       <MobilesList />
-    </div>
+    </main>
   );
 }
 
