@@ -55,7 +55,7 @@ function Header() {
         {searching
           ? (
             <ul className="mobilesList">
-              {filteredMobilesList.map((mobile) => <Link className="mobilesList__Link" key={mobile.id} to={`/${mobile.id}`} onClick={() => { setSearching(''); }}>{mobile.model}</Link>)}
+              {filteredMobilesList.map((mobile) => <Link className="mobilesList__Link" key={mobile.id} to={`/${mobile.id}`} onClick={() => { setSearching(''); filterMobiles(''); }}>{mobile.model}</Link>)}
             </ul>
           )
           : null}
