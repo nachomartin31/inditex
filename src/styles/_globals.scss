@@ -9,6 +9,9 @@
     $black: #212121;
     $white: #F5F5F5;
     $blue: #A4C7E0;
+    $darker-blue: #2A4A61;
+    $gray-blue: #7F9AAD;
+
     
 //Default sizing
 *, *::after, *::before{
@@ -16,6 +19,16 @@
     padding: 0;
     box-sizing: border-box;
     color: $black;
+}
+
+//Fonts
+@font-face {
+    font-family: "helvetica-neue";
+    src: url('../../public/fonts/helvetica-neue-thin.ttf');
+}
+@font-face {
+    font-family: "audrey-bold";
+    src: url('../../public/fonts/Audrey-Normal.otf');
 }
 
 //Global styles
