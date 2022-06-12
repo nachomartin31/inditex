@@ -11,6 +11,7 @@ import fetchDataFromApi from '../utils/loadData';
 import setCookieOptions from '../utils/setCookieOptions';
 import bag from '../img/shopping-bag.svg';
 
+import '../styles/globals.scss';
 import '../styles/header.scss';
 
 function Header() {
