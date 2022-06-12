@@ -15,6 +15,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: $black;
 }
 
 //Global styles
@@ -22,15 +23,18 @@ body{
     background-color: $white;
 }
 
-p, 
-a, 
 h1, 
 h2,
 h3, 
 h4, 
 h5, 
 h6{
-    color: $black;
+    font-family: audrey-bold;
+    font-weight: 400;
+}
+
+a, p, input{
+    font-family: helvetica-neue;
 }
 
 li{

@@ -1,5 +1,8 @@
+@use './globals' as *;
+
 .miniature{
     width: fit-content;
+    text-align: center;
     p{
     font-size: 1.8vh;}
     img{
