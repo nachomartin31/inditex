@@ -7,6 +7,7 @@
 
     &__heading{
         text-align: center;
+        margin-bottom: 3vh;
     }
 
     &__wrapper{
@@ -15,7 +16,7 @@
     }
     &__image{
         width: 50%;
-        margin: 0 auto;
+        margin: auto;
     }
     &__info{
         margin: 0 auto;
@@ -63,7 +64,7 @@
         }
     }
 
-    &__button{
+    &__button, &__button--back{
         color: $white;
         letter-spacing: 1px;
         width: 50%;
@@ -73,7 +74,13 @@
         padding: 1vh;
         border-radius: 0.5rem;
         text-transform: uppercase;
+        &:hover{
+            cursor: pointer;
+        }
 
+        &--back{
+            background-color: $darker-blue;
+        }
     }
 }
 
@@ -83,6 +90,7 @@
             grid-template-columns: repeat(2, 1fr);
         }
     }
+
 }
 
 .spinner {
