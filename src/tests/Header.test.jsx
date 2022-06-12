@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { render, store } from '../utils/testUtils';
+import { render } from '../utils/testUtils';
 import '@testing-library/jest-dom/extend-expect';
 import Header from '../components/Header';
 import mobilesList, { loadMobilesList } from '../redux/slices/mobilesList';
