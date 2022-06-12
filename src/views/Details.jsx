@@ -33,7 +33,6 @@ function Details() {
   }
 
   useEffect(() => {
-    console.log(id);
     fetchMobile();
   }, [id]);
 
