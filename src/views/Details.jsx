@@ -2,8 +2,13 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import { compressToBase64, decompressFromBase64 } from 'lz-string';
 import { loadCurrentMobile } from '../redux/slices/currentMobile';
 import { addToCart } from '../redux/slices/cartSlice';
+import fetchDataFromApi from '../utils/loadData';
+import setCookieOptions from '../utils/setCookieOptions';
+
 import '../styles/mobileDetails.scss';
 
 function Details() {
@@ -11,11 +16,20 @@ function Details() {
   const [storage, setStorage] = useState('');
   const [color, setColor] = useState('');
   const { id } = useParams();
+  const [cookies, setCookie] = useCookies(['']);
   const dispatch = useDispatch();
 
   async function fetchMobile() {
-    const { data } = await axios.get(`${process.env.REACT_APP_URL}api/product/${id}`);
-    await dispatch(loadCurrentMobile(data));
+    if (Object.keys(cookies).some((key) => key.includes(id))) {
+      const [, stringifiedData] = Object.entries(cookies).find((entry) => entry[0] === id);
+      const data = JSON.parse(decompressFromBase64(stringifiedData));
+      await dispatch(loadCurrentMobile(data));
+    } else {
+      const data = await fetchDataFromApi(`${process.env.REACT_APP_URL}api/product/${id}`);
+      await dispatch(loadCurrentMobile(data));
+      const dataToString = compressToBase64(JSON.stringify(data));
+      await setCookie(`${id}`, dataToString, { path: `/${id}`, expires: setCookieOptions() });
+    }
   }
 
   useEffect(() => {

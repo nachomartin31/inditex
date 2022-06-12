@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import { compressToBase64, decompressFromBase64 } from 'lz-string';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { filterMobilesList } from '../redux/slices/filteredMobilesList';
 import { loadMobilesList } from '../redux/slices/mobilesList';
+import fetchDataFromApi from '../utils/loadData';
+import setCookieOptions from '../utils/setCookieOptions';
 
 import '../styles/header.scss';
 
@@ -13,11 +16,36 @@ function Header() {
   const mobilesList = useSelector((state) => state.mobilesList.mobilesList);
   const filteredMobilesList = useSelector((state) => state.filteredMobilesList.filteredMobilesList);
   const cart = useSelector((state) => state.cart.cart);
+  const [cookies, setCookie] = useCookies(['']);
   const dispatch = useDispatch();
   const breadcrumbs = useBreadcrumbs();
   async function loadMobiles() {
-    const { data } = await axios.get(`${process.env.REACT_APP_URL}api/product`);
-    await dispatch(loadMobilesList(data));
+    if (cookies.mobilesList) {
+      const stringifiedData = cookies.mobilesList.concat(
+        cookies.mobilesList1,
+        cookies.mobilesList2,
+        cookies.mobilesList3
+      );
+      const data = JSON.parse(decompressFromBase64(stringifiedData));
+      await dispatch(loadMobilesList(data));
+    } else {
+      const data = await fetchDataFromApi(`${process.env.REACT_APP_URL}api/product`);
+      await dispatch(loadMobilesList(data));
+
+      const dataToString = compressToBase64(JSON.stringify(data));
+      const substring1 = dataToString
+        .substring(0, dataToString.length / 4);
+      const substring2 = dataToString
+        .substring(dataToString.length / 4, 2 * (dataToString.length / 4));
+      const substring3 = dataToString
+        .substring(2 * (dataToString.length / 4), 3 * (dataToString.length / 4));
+      const substring4 = dataToString
+        .substring(3 * (dataToString.length / 4), dataToString.length);
+      await setCookie('mobilesList', substring1, { path: '/', expires: setCookieOptions() });
+      await setCookie('mobilesList1', substring2, { path: '/', expires: setCookieOptions() });
+      await setCookie('mobilesList2', substring3, { path: '/', expires: setCookieOptions() });
+      await setCookie('mobilesList3', substring4, { path: '/', expires: setCookieOptions() });
+    }
   }
 
   useEffect(() => {
