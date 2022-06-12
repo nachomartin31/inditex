@@ -70,8 +70,8 @@ function Header() {
     if (match.pathname === '/') return (<Link key={match.pathname} className="breadcrumbs" to={match.pathname}>{breadcrumb}</Link>);
     const id = match.pathname.substring(1, match.pathname.length);
     const mobileToShow = mobilesList.find((mobile) => mobile.id === id);
-    if (!mobileToShow) return (<Link key={match.pathname} className="breadcrumbs" to={match.pathname}>Not found</Link>);
-    return (<Link key={match.pathname} className="breadcrumbs" to={match.pathname}>{mobileToShow.model}</Link>);
+    if (!mobileToShow) return (<Link key={match.pathname} className="breadcrumbs__mobile" to={match.pathname}>Not found</Link>);
+    return (<Link key={match.pathname} className="breadcrumbs__mobile" to={match.pathname}>{mobileToShow.model}</Link>);
   };
   return (
     <header>
