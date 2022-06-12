@@ -74,6 +74,9 @@
         padding: 1vh;
         border-radius: 0.5rem;
         text-transform: uppercase;
+        &:hover{
+            cursor: pointer;
+        }
 
         &--back{
             background-color: $darker-blue;
