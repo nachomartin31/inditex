@@ -8,6 +8,7 @@ import { filterMobilesList } from '../redux/slices/filteredMobilesList';
 import { loadMobilesList } from '../redux/slices/mobilesList';
 import fetchDataFromApi from '../utils/loadData';
 import setCookieOptions from '../utils/setCookieOptions';
+import bag from '../img/shopping-bag.svg';
 
 import '../styles/header.scss';
 
@@ -89,9 +90,12 @@ function Header() {
           )
           : null}
       </div>
-      {cart.count
-        ? <p>{cart.count}</p>
-        : null}
+      <div className="shopping-bag">
+        <img src={bag} alt="bag" />
+        {cart.count
+          ? <p className="shopping-bag__length">{cart.count}</p>
+          : null}
+      </div>
     </header>
   );
 }
