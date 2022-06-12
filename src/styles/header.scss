@@ -60,15 +60,47 @@ header{
             }
           }
     }
+    .shopping-bag{
+        position: relative;
+        width: 25px;
+        height: 25px;
+        .shopping-bag__length{
+            position: absolute;
+            color: $darker-blue;
+            width:1.5vh;
+            height: 1.5vh;
+            text-align: center;
+            top: 0;
+            right: -0.5vw;
+            background-color: $gray-blue;
+            border-radius: 0.5rem;
+        }
+    }
 }
 
 @media (min-width: $tablet) {
     header{
     font-size: 1.8vh;
+    .shopping-bag{
+        .shopping-bag__length{
+            width: 1.8vh;
+            height: 1.8vh;
+            right: -1vw;
+
+        }  
+    }
     }
 }
 @media (min-width: $desktop) {
     header{
     font-size: 2vh;
+    .shopping-bag{
+        .shopping-bag__length{
+            width: 2vh;
+            height: 2vh;
+            right: -0.5vw;
+
+        }
+    }
     }
 }
