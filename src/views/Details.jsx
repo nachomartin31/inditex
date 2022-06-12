@@ -28,11 +28,12 @@ function Details() {
       const data = await fetchDataFromApi(`${process.env.REACT_APP_URL}api/product/${id}`);
       await dispatch(loadCurrentMobile(data));
       const dataToString = compressToBase64(JSON.stringify(data));
-      await setCookie(`${id}`, dataToString, { path: `/${id}`, expires: setCookieOptions() });
+      await setCookie(`${id}`, dataToString, setCookieOptions());
     }
   }
 
   useEffect(() => {
+    console.log(id);
     fetchMobile();
   }, [id]);
 

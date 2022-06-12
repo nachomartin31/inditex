@@ -3,5 +3,5 @@ export default function setCookieOptions() {
   const time = date.getTime();
   const expiration = time + (1000 * 3600);
   date.setTime(expiration);
-  return date;
+  return { path: `/`, expires: date };
 }

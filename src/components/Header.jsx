@@ -41,10 +41,10 @@ function Header() {
         .substring(2 * (dataToString.length / 4), 3 * (dataToString.length / 4));
       const substring4 = dataToString
         .substring(3 * (dataToString.length / 4), dataToString.length);
-      await setCookie('mobilesList', substring1, { path: '/', expires: setCookieOptions() });
-      await setCookie('mobilesList1', substring2, { path: '/', expires: setCookieOptions() });
-      await setCookie('mobilesList2', substring3, { path: '/', expires: setCookieOptions() });
-      await setCookie('mobilesList3', substring4, { path: '/', expires: setCookieOptions() });
+      await setCookie('mobilesList', substring1, setCookieOptions());
+      await setCookie('mobilesList1', substring2, setCookieOptions());
+      await setCookie('mobilesList2', substring3, setCookieOptions());
+      await setCookie('mobilesList3', substring4, setCookieOptions());
     }
   }
 
