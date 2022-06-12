@@ -6,6 +6,7 @@ import useBreadcrumbs from 'use-react-router-breadcrumbs';
 import { Link } from 'react-router-dom';
 import { filterMobilesList } from '../redux/slices/filteredMobilesList';
 import { loadMobilesList } from '../redux/slices/mobilesList';
+import { loadCart } from '../redux/slices/cartSlice';
 import fetchDataFromApi from '../utils/loadData';
 import setCookieOptions from '../utils/setCookieOptions';
 import bag from '../img/shopping-bag.svg';
@@ -49,8 +50,18 @@ function Header() {
     }
   }
 
+  function fetchCart() {
+    if (Object.keys(cookies).some((key) => key === 'cart')) {
+      const [, savedCart] = Object.entries(cookies).find((entry) => entry[0] === 'cart');
+      dispatch(loadCart(savedCart));
+      return true;
+    }
+    return false;
+  }
+
   useEffect(() => {
     loadMobiles();
+    fetchCart();
   }, []);
   useEffect(() => {
     dispatch(filterMobilesList(mobilesList));

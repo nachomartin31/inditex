@@ -13,6 +13,7 @@ import '../styles/mobileDetails.scss';
 
 function Details() {
   const currentMobile = useSelector((state) => state.currentMobile.currentMobile);
+  const cart = useSelector((state) => state.cart.cart);
   const [storage, setStorage] = useState('');
   const [color, setColor] = useState('');
   const { id } = useParams();
@@ -41,6 +42,10 @@ function Details() {
     setStorage(currentMobile?.options?.storages[0].code);
   }, [currentMobile]);
 
+  const saveCart = async () => {
+    await setCookie('cart', JSON.stringify(cart), setCookieOptions());
+  };
+  useEffect(() => { saveCart(); }, [cart]);
   const addMobileToCart = async () => {
     const selectedMobile = {
       id,
@@ -48,7 +53,7 @@ function Details() {
       storageCode: storage
     };
     const { data } = await axios.post(`${process.env.REACT_APP_URL}api/cart`, selectedMobile);
-    dispatch(addToCart(data));
+    await dispatch(addToCart(data));
   };
 
   return (
