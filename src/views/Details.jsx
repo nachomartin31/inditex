@@ -119,45 +119,42 @@ function Details() {
                         </li>
                       </ul>
                       <section className="mobile-details__actions">
-                        <nav>
-                          <div>
+                        <div className="mobile-details__selectors">
+                          <label htmlFor="storage">
+                            Memoria:
+                            <select id="storage" value={storage} onChange={(evt) => setStorage(parseFloat(evt.target.value))}>
 
-                            <label htmlFor="storage">
-                              Memoria:
-                              <select id="storage" value={storage} onChange={(evt) => setStorage(parseFloat(evt.target.value))}>
-
-                                {currentMobile?.options?.storages?.map(
-                                  (option) => (
-                                    <option
-                                      key={option.code}
-                                      value={option.code}
-                                    >
-                                      {option.name}
-                                    </option>
-                                  )
-                                )}
-                              </select>
-                            </label>
-                            <label htmlFor="color">
-                              Color:
-                              <select id="color" value={color} onChange={(evt) => setColor(parseFloat(evt.target.value))}>
-                                {currentMobile?.options?.colors?.map(
-                                  (
-                                    option
-                                  ) => (
-                                    <option
-                                      key={option.code}
-                                      value={option.code}
-                                    >
-                                      {option.name}
-                                    </option>
-                                  )
-                                )}
-                              </select>
-                            </label>
-                          </div>
-                          <input type="button" value="Añadir al carrito" onClick={addMobileToCart} />
-                        </nav>
+                              {currentMobile?.options?.storages?.map(
+                                (option) => (
+                                  <option
+                                    key={option.code}
+                                    value={option.code}
+                                  >
+                                    {option.name}
+                                  </option>
+                                )
+                              )}
+                            </select>
+                          </label>
+                          <label htmlFor="color">
+                            Color:
+                            <select id="color" value={color} onChange={(evt) => setColor(parseFloat(evt.target.value))}>
+                              {currentMobile?.options?.colors?.map(
+                                (
+                                  option
+                                ) => (
+                                  <option
+                                    key={option.code}
+                                    value={option.code}
+                                  >
+                                    {option.name}
+                                  </option>
+                                )
+                              )}
+                            </select>
+                          </label>
+                        </div>
+                        <input className="mobile-details__button" type="button" value="Añadir al carrito" onClick={addMobileToCart} />
                       </section>
                     </section>
                   </div>
