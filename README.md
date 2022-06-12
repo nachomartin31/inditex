@@ -1,5 +1,5 @@
 # Alten
-Este proyecto recibe datos desde [alten](https://front-test-api.herokuapp.com/api/product)
+Este proyecto recibe datos desde [API](https://front-test-api.herokuapp.com/api/product)
 
 ## Descripción
 Este repositorio contiene la prueba técnica realizada para la posición frontend de Alten. 
