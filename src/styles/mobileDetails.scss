@@ -46,6 +46,22 @@
             }
         }
     }
+    &__storage{
+        display: flex;
+            .mobile-details__storage--key{
+                font-weight: 700;
+            }
+            .mobile-details__storage--value{
+                font-weight: 400;
+                margin-right: 5px;
+                &::after{
+                    content: ", ";
+                }
+                &:last-of-type::after{
+                    content: "";
+                }
+            }
+        }
     &__actions{
         display: flex;
         flex-direction: column;

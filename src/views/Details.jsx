@@ -84,9 +84,10 @@ function Details() {
                           <span className="mobile-details__value">Procesador:</span>
                           {` ${currentMobile?.cpu}`}
                         </li>
-                        <ul>
+                        <ul className="mobile-details__storage">
+                          <span className="mobile-details__storage--key">Almacenamiento:</span>
                           {currentMobile?.options?.storages?.map(
-                            (option) => <li key={option.code}>{option.name}</li>
+                            (option) => <li className="mobile-details__storage--value" key={option.code}>{option.name}</li>
                           )}
 
                         </ul>
