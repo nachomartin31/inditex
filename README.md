@@ -18,11 +18,12 @@ En esta aplicación se puede encontrar:
 ## Prerequisitos
 Para poder abrir localmente el proyecto es necesario tener instalados en el equipo:
 * Node.js 
-* SASS
+* Compilador de SASS
 
 ## Instalación
 * Clonar este repositorio
 * Sustituir el archivo `.env.example` por un archivo `.env` con las variables adecuadas.
+* Instalar las dependencias mediante el comando `npm install`.
 
 ## Uso
 Desde el directorio del proyecto se pueden utilizar los siguientes comandos:
@@ -31,12 +32,12 @@ Desde el directorio del proyecto se pueden utilizar los siguientes comandos:
 Permite abrir la aplicación en modo desarrollo.\
 Abrir [http://localhost:3000](http://localhost:3000) para acceder a la vista en el navegador.
 
-### `npm build`
+### `npm run build`
 Permite compilar la aplicación para modo producción.
 
-### `npm test`
+### `npm run test`
 Permite ejecutar los tests del proyecto.
 
-### `npm lint`
-Permite visualizar por consola errores y sugerencias recopliadas por ESLint para mejorar el código.
+### `npm run lint`
+Permite visualizar por consola errores y sugerencias recopliadas por ESLint para estandarizar el código.
 
