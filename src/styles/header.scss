@@ -13,47 +13,42 @@ header{
         text-decoration: none;
         h1{
             font-size: 2vh;
-            color: $darker-blue;
         }
     }
     input[type="text"]{
         position: relative;
-        background-color: $white;
-        border: none; 
-        padding: 0.5vh; 
         width: 20vw;
         &:focus{
             outline: none;
         }
     }
     .breadcrumbs{
-        font-weight: 400;
-        background-color: $darker-blue;
-        color: $white;
-        padding: 1vh 1vw 1vh 0.5vw;
-        clip-path: polygon(0% 0%, 90% 0, 100% 50%, 90% 100%, 0% 100%);
-        &__mobile{
-            font-weight: 400;
-            background-color: $gray-blue;
-            padding: 1vh 1vw 1vh 1vw ;
-            clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 46%, 0% 0%);
+        
+        &::after{
+            content: "   >   ";
+        }
+        &:last-of-type{
+            &::after{
+                content: "";
+            }
         }
     }
     .mobilesList{
         position: absolute;
         display: flex;
         flex-direction: column;
-        background-color: $white;
-        max-height: 10vh;
+        height: 10vh;
         overflow: auto;
         width: 20vw;
         &::-webkit-scrollbar{
             width: 1px;
           }
+        
+          &::-webkit-scrollbar-thumb{
+            background-color: #fff;
+          }
           a{
             width: 100%;
-            background-color: $white;
-
             text-align: center;
             &:hover{
                 background-color: $blue;
