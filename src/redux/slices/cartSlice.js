@@ -15,12 +15,11 @@ export const cartSlice = createSlice({
       const { count: actionCount } = action.payload;
       state.cart = { count: count + actionCount };
     },
-    deleteFromCart: (state, action) => {
-      const newCart = state.cart.filter((carrtItem) => carrtItem.id === action.payload);
-      state.cart = newCart;
+    loadCart: (state, action) => {
+      state.cart = action.payload;
     }
   }
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, loadCart } = cartSlice.actions;
 export default cartSlice.reducer;
