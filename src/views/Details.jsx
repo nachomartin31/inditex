@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { compressToBase64, decompressFromBase64 } from 'lz-string';
@@ -17,6 +17,7 @@ function Details() {
   const [storage, setStorage] = useState('');
   const [color, setColor] = useState('');
   const { id } = useParams();
+  const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(['']);
   const dispatch = useDispatch();
 
@@ -160,6 +161,7 @@ function Details() {
                           </label>
                         </div>
                         <input className="mobile-details__button" type="button" value="Añadir al carrito" onClick={addMobileToCart} />
+                        <input className="mobile-details__button--back" type="button" value="Atrás" onClick={() => navigate(-1)} />
                       </section>
                     </section>
                   </div>
@@ -171,7 +173,7 @@ function Details() {
                   <div className="dot2" />
                 </div>
               )
-      }
+            }
     </main>
   );
 }
