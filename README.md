@@ -11,6 +11,7 @@ En esta aplicación se puede encontrar:
 * Material-UI
 * Redux
 * Environment variables
+* Cookies
 * SOLID
 * DRY
 * ESLint
