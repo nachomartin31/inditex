@@ -9,25 +9,12 @@
     $black: #212121;
     $white: #F5F5F5;
     $blue: #A4C7E0;
-    $darker-blue: #2A4A61;
-    $gray-blue: #7F9AAD;
-
     
 //Default sizing
 *, *::after, *::before{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-//Fonts
-@font-face {
-    font-family: "helvetica-neue";
-    src: url('../../public/fonts/helvetica-neue-thin.ttf');
-}
-@font-face {
-    font-family: "audrey-bold";
-    src: url('../../public/fonts/Audrey-Normal.otf');
 }
 
 //Global styles
@@ -44,20 +31,6 @@ h4,
 h5, 
 h6{
     color: $black;
-}
-
-h1, 
-h2,
-h3, 
-h4, 
-h5, 
-h6{
-    font-family: audrey-bold;
-    font-weight: 400;
-}
-
-a, p, input{
-    font-family: helvetica-neue;
 }
 
 li{

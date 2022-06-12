@@ -37,9 +37,6 @@ function MobilesList() {
   }
   return (
     <div className="mobileList">
-      <section className="mobileList__content">
-        {mobilesToDisplay[currentPage - 1]?.map((mobile) => <Link key={mobile.id} to={`/${mobile.id}`}><MobileMiniature mobile={mobile} /></Link>)}
-      </section>
       <ThemeProvider theme={theme}>
         <Stack spacing={2} className="mobileList__pagination">
           <Pagination
@@ -53,6 +50,9 @@ function MobilesList() {
           />
         </Stack>
       </ThemeProvider>
+      <section className="mobileList__content">
+        {mobilesToDisplay[currentPage - 1]?.map((mobile) => <Link key={mobile.id} to={`/${mobile.id}`}><MobileMiniature mobile={mobile} /></Link>)}
+      </section>
     </div>
   );
 }

@@ -43,36 +43,8 @@
             &:last-of-type::after{
                 content: "";
             }
-        }
-    }
-    &__actions{
-        display: flex;
-        flex-direction: column;
-    }
-    &__selectors{
-        width: 100%;
-        margin: 2vh auto;
-        display: flex;
-        justify-content: space-around;
-        select{
-            background-color: $white;
-            border: none;
-            &:focus{
-                outline: none;
-            }
-        }
-    }
 
-    &__button{
-        color: $white;
-        letter-spacing: 1px;
-        width: 50%;
-        margin: 2vh auto;
-        border: none;
-        background-color: $gray-blue;
-        padding: 1vh;
-        border-radius: 0.5rem;
-        text-transform: uppercase;
+        }
 
     }
 }
