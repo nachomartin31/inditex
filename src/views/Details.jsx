@@ -3,12 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
-import { compressToBase64, decompressFromBase64 } from 'lz-string';
+import { decompressFromBase64 } from 'lz-string';
 import { loadCurrentMobile } from '../redux/slices/currentMobile';
 import { addToCart } from '../redux/slices/cartSlice';
 import fetchDataFromApi from '../utils/loadData';
-import setCookieOptions from '../utils/setCookieOptions';
-
+import storageData from '../utils/storageData';
 import '../styles/mobileDetails.scss';
 
 function Details() {
@@ -16,22 +15,24 @@ function Details() {
   const cart = useSelector((state) => state.cart.cart);
   const [storage, setStorage] = useState('');
   const [color, setColor] = useState('');
+  const [itemsOnCart, setitemsOnCart] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(['']);
+  const [, setCookie] = useCookies(['']);
   const dispatch = useDispatch();
 
   async function fetchMobile() {
-    if (Object.keys(cookies).some((key) => key.includes(id))) {
-      const [, stringifiedData] = Object.entries(cookies).find((entry) => entry[0] === id);
-      const data = JSON.parse(decompressFromBase64(stringifiedData));
-      await dispatch(loadCurrentMobile(data));
+    let data;
+    if (Object.keys(localStorage).some((key) => key.includes(id))) {
+      const [, stringifiedData] = Object.entries(localStorage).find((entry) => entry[0] === id);
+      const dataMinified = JSON.parse(stringifiedData);
+      const { value } = dataMinified;
+      data = JSON.parse(decompressFromBase64(value));
     } else {
-      const data = await fetchDataFromApi(`${process.env.REACT_APP_URL}api/product/${id}`);
-      await dispatch(loadCurrentMobile(data));
-      const dataToString = compressToBase64(JSON.stringify(data));
-      await setCookie(`${id}`, dataToString, setCookieOptions());
+      data = await fetchDataFromApi(`${process.env.REACT_APP_URL}api/product/${id}`);
+      storageData(data, `${id}`);
     }
+    await dispatch(loadCurrentMobile(data));
   }
 
   useEffect(() => {
@@ -44,7 +45,11 @@ function Details() {
   }, [currentMobile]);
 
   const saveCart = async () => {
-    await setCookie('cart', JSON.stringify(cart), setCookieOptions());
+    const date = new Date();
+    const time = date.getTime();
+    const expiration = time + (1000 * 3600);
+    date.setTime(expiration);
+    await setCookie('cart', JSON.stringify(cart), { path: '/', expires: date });
   };
   useEffect(() => { saveCart(); }, [cart]);
   const addMobileToCart = async () => {
@@ -55,6 +60,7 @@ function Details() {
     };
     const { data } = await axios.post(`${process.env.REACT_APP_URL}api/cart`, selectedMobile);
     await dispatch(addToCart(data));
+    await setitemsOnCart(itemsOnCart + 1);
   };
 
   return (
@@ -161,7 +167,7 @@ function Details() {
                             </select>
                           </label>
                         </div>
-                        <input className="mobile-details__button" type="button" value="Añadir al carrito" onClick={addMobileToCart} />
+                        <input className="mobile-details__button" type="button" value="Añadir al carrito" onClick={() => { addMobileToCart(); }} />
                         <input className="mobile-details__button--back" type="button" value="Atrás" onClick={() => navigate(-1)} />
                       </section>
                     </section>

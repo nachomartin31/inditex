@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
-import { compressToBase64, decompressFromBase64 } from 'lz-string';
+import { decompressFromBase64 } from 'lz-string';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
 import { Link } from 'react-router-dom';
 import { filterMobilesList } from '../redux/slices/filteredMobilesList';
 import { loadMobilesList } from '../redux/slices/mobilesList';
-import { loadCart } from '../redux/slices/cartSlice';
 import fetchDataFromApi from '../utils/loadData';
-import setCookieOptions from '../utils/setCookieOptions';
+import storageData from '../utils/storageData';
 import bag from '../img/shopping-bag.svg';
+import { loadCart } from '../redux/slices/cartSlice';
 
 import '../styles/globals.scss';
 import '../styles/header.scss';
@@ -19,34 +19,23 @@ function Header() {
   const mobilesList = useSelector((state) => state.mobilesList.mobilesList);
   const filteredMobilesList = useSelector((state) => state.filteredMobilesList.filteredMobilesList);
   const cart = useSelector((state) => state.cart.cart);
-  const [cookies, setCookie] = useCookies(['']);
+  const [cookies] = useCookies(['']);
   const dispatch = useDispatch();
   const breadcrumbs = useBreadcrumbs();
+
   async function loadMobiles() {
     let data;
-    if (cookies.mobilesList) {
-      const stringifiedData = cookies.mobilesList.concat(
-        cookies.mobilesList1,
-        cookies.mobilesList2,
-        cookies.mobilesList3
-      );
-      data = JSON.parse(decompressFromBase64(stringifiedData));
+    if (Object.keys(localStorage).includes('mobilesList')) {
+      const [, stringifiedData] = Object.entries(
+        localStorage
+      ).find((entry) => entry[0] === 'mobilesList');
+
+      const dataMinified = JSON.parse(stringifiedData);
+      const { value } = dataMinified;
+      data = JSON.parse(decompressFromBase64(value));
     } else {
       data = await fetchDataFromApi(`${process.env.REACT_APP_URL}api/product`);
-
-      const dataToString = compressToBase64(JSON.stringify(data));
-      const substring1 = dataToString
-        .substring(0, dataToString.length / 4);
-      const substring2 = dataToString
-        .substring(dataToString.length / 4, 2 * (dataToString.length / 4));
-      const substring3 = dataToString
-        .substring(2 * (dataToString.length / 4), 3 * (dataToString.length / 4));
-      const substring4 = dataToString
-        .substring(3 * (dataToString.length / 4), dataToString.length);
-      await setCookie('mobilesList', substring1, setCookieOptions());
-      await setCookie('mobilesList1', substring2, setCookieOptions());
-      await setCookie('mobilesList2', substring3, setCookieOptions());
-      await setCookie('mobilesList3', substring4, setCookieOptions());
+      storageData(data, 'mobilesList');
     }
     await dispatch(loadMobilesList(data));
   }
