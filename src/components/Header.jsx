@@ -26,9 +26,7 @@ function Header() {
   async function loadMobiles() {
     let data;
     if (Object.keys(localStorage).includes('mobilesList')) {
-      const [, stringifiedData] = Object.entries(
-        localStorage
-      ).find((entry) => entry[0] === 'mobilesList');
+      const stringifiedData = localStorage.getItem('mobilesList');
 
       const dataMinified = JSON.parse(stringifiedData);
       const { value } = dataMinified;
