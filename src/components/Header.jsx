@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
 import { decompressFromBase64 } from 'lz-string';
 import useBreadcrumbs from 'use-react-router-breadcrumbs';
 import { Link } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { loadMobilesList } from '../redux/slices/mobilesList';
 import fetchDataFromApi from '../utils/loadData';
 import storageData from '../utils/storageData';
 import bag from '../img/shopping-bag.svg';
+import { loadCart } from '../redux/slices/cartSlice';
 
 import '../styles/globals.scss';
 import '../styles/header.scss';
@@ -17,6 +19,7 @@ function Header() {
   const mobilesList = useSelector((state) => state.mobilesList.mobilesList);
   const filteredMobilesList = useSelector((state) => state.filteredMobilesList.filteredMobilesList);
   const cart = useSelector((state) => state.cart.cart);
+  const [cookies] = useCookies(['']);
   const dispatch = useDispatch();
   const breadcrumbs = useBreadcrumbs();
 
@@ -38,7 +41,12 @@ function Header() {
   }
 
   function fetchCart() {
-
+    if (Object.keys(cookies).some((key) => key === 'cart')) {
+      const [, savedCart] = Object.entries(cookies).find((entry) => entry[0] === 'cart');
+      dispatch(loadCart(savedCart));
+      return true;
+    }
+    return false;
   }
 
   useEffect(() => {

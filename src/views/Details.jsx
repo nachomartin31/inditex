@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 import { decompressFromBase64 } from 'lz-string';
 import { loadCurrentMobile } from '../redux/slices/currentMobile';
 import { addToCart } from '../redux/slices/cartSlice';
 import fetchDataFromApi from '../utils/loadData';
 import storageData from '../utils/storageData';
-
 import '../styles/mobileDetails.scss';
 
 function Details() {
@@ -15,8 +15,10 @@ function Details() {
   const cart = useSelector((state) => state.cart.cart);
   const [storage, setStorage] = useState('');
   const [color, setColor] = useState('');
+  const [itemsOnCart, setitemsOnCart] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [, setCookie] = useCookies(['']);
   const dispatch = useDispatch();
 
   async function fetchMobile() {
@@ -43,7 +45,11 @@ function Details() {
   }, [currentMobile]);
 
   const saveCart = async () => {
-    // await setCookie('cart', JSON.stringify(cart), setCookieOptions());
+    const date = new Date();
+    const time = date.getTime();
+    const expiration = time + (1000 * 3600);
+    date.setTime(expiration);
+    await setCookie('cart', JSON.stringify(cart), { path: '/', expires: date });
   };
   useEffect(() => { saveCart(); }, [cart]);
   const addMobileToCart = async () => {
@@ -54,6 +60,7 @@ function Details() {
     };
     const { data } = await axios.post(`${process.env.REACT_APP_URL}api/cart`, selectedMobile);
     await dispatch(addToCart(data));
+    await setitemsOnCart(itemsOnCart + 1);
   };
 
   return (
@@ -160,7 +167,7 @@ function Details() {
                             </select>
                           </label>
                         </div>
-                        <input className="mobile-details__button" type="button" value="Añadir al carrito" onClick={addMobileToCart} />
+                        <input className="mobile-details__button" type="button" value="Añadir al carrito" onClick={() => { addMobileToCart(); }} />
                         <input className="mobile-details__button--back" type="button" value="Atrás" onClick={() => navigate(-1)} />
                       </section>
                     </section>
