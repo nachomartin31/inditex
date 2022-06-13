@@ -23,17 +23,16 @@ function Header() {
   const dispatch = useDispatch();
   const breadcrumbs = useBreadcrumbs();
   async function loadMobiles() {
+    let data;
     if (cookies.mobilesList) {
       const stringifiedData = cookies.mobilesList.concat(
         cookies.mobilesList1,
         cookies.mobilesList2,
         cookies.mobilesList3
       );
-      const data = JSON.parse(decompressFromBase64(stringifiedData));
-      await dispatch(loadMobilesList(data));
+      data = JSON.parse(decompressFromBase64(stringifiedData));
     } else {
-      const data = await fetchDataFromApi(`${process.env.REACT_APP_URL}api/product`);
-      await dispatch(loadMobilesList(data));
+      data = await fetchDataFromApi(`${process.env.REACT_APP_URL}api/product`);
 
       const dataToString = compressToBase64(JSON.stringify(data));
       const substring1 = dataToString
@@ -49,6 +48,7 @@ function Header() {
       await setCookie('mobilesList2', substring3, setCookieOptions());
       await setCookie('mobilesList3', substring4, setCookieOptions());
     }
+    await dispatch(loadMobilesList(data));
   }
 
   function fetchCart() {
