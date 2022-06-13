@@ -24,7 +24,7 @@ function Details() {
   async function fetchMobile() {
     let data;
     if (Object.keys(localStorage).some((key) => key.includes(id))) {
-      const [, stringifiedData] = Object.entries(localStorage).find((entry) => entry[0] === id);
+      const stringifiedData = localStorage.getItem(`${id}`);
       const dataMinified = JSON.parse(stringifiedData);
       const { value } = dataMinified;
       data = JSON.parse(decompressFromBase64(value));
