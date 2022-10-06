@@ -1,8 +1,8 @@
-# Alten
+# Inditex
 Este proyecto recibe datos desde [API](https://front-test-api.herokuapp.com/api/product)
 
 ## Descripción
-Este repositorio contiene la prueba técnica realizada para la posición frontend de Alten. 
+Este repositorio contiene la prueba técnica realizada para la posición frontend de Inditex. 
 En esta aplicación se puede encontrar:
 * BEM
 * Semantic HTML
