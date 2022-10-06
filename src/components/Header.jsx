@@ -75,7 +75,7 @@ function Header() {
   };
   return (
     <header>
-      <Link to="/"><h1>Alten Phones</h1></Link>
+      <Link to="/"><h1>New Phones</h1></Link>
       <nav>
         {breadcrumbs.map(({ match, breadcrumb }) => dynamicMobileBreadCrumbs(match, breadcrumb))}
       </nav>
