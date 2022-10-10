@@ -8,7 +8,6 @@ En esta aplicación se puede encontrar:
 * Semantic HTML
 * Unit testing (Jest)
 * SASS
-* Material-UI
 * Redux
 * Environment variables
 * LocalStorage
