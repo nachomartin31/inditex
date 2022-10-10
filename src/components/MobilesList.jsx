@@ -1,58 +1,53 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import {
+  Suspense, lazy, useState, useEffect
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Stack from '@mui/material/Stack';
-import Pagination from '@mui/material/Pagination';
-import { createTheme } from '@mui/material/styles';
-import { ThemeProvider } from '@emotion/react';
-import MobileMiniature from './MobileMiniature';
+import { filterMobilesList } from '../redux/slices/filteredMobilesList';
+
+const MobileMiniature = lazy(() => import('./MobileMiniature'));
 
 function MobilesList() {
+  const [searching, setSearching] = useState('');
+  const mobilesList = useSelector((state) => state.mobilesList.mobilesList);
   const filteredMobilesList = useSelector((state) => state.filteredMobilesList.filteredMobilesList);
-  const [mobilesToDisplay, setMobilesToDisplay] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    let mobilesSlices = [];
-    for (let i = 0; i < filteredMobilesList.length; i += 12) {
-      const slice = filteredMobilesList.slice(i, i + 12);
-      mobilesSlices = [...mobilesSlices, slice];
-    }
-    setTotalCount(mobilesSlices.length);
-    setMobilesToDisplay(mobilesSlices);
-    setCurrentPage(1);
-  }, [filteredMobilesList]);
+    dispatch(filterMobilesList(mobilesList));
+  }, [mobilesList]);
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#A4C7E0'
-      }
-    }
-  });
-
-  function handlePaginationChange(event, value) {
-    setCurrentPage(value);
-  }
+  const filterMobiles = (query) => {
+    const mobilesToFilter = mobilesList.filter(
+      ({ brand, model }) => brand
+        .toLowerCase()
+        .includes(query.toLowerCase())
+        || model.toLowerCase()
+          .includes(query.toLowerCase())
+    );
+    dispatch(filterMobilesList(mobilesToFilter));
+  };
   return (
     <div className="mobileList">
+      <div className="mobileList__searcher">
+        <input type="text" placeholder="Buscar" value={searching} onChange={(evt) => { filterMobiles(evt.target.value); setSearching(evt.target.value); }} />
+        {searching
+          ? (
+            <ul className="mobileList__search">
+              {filteredMobilesList.map((mobile) => <Link className="mobilesList__Link" key={mobile.id} to={`/${mobile.id}`} onClick={() => { setSearching(''); filterMobiles(''); }}>{mobile.model}</Link>)}
+            </ul>
+          )
+          : null}
+      </div>
       <section className="mobileList__content">
-        {mobilesToDisplay[currentPage - 1]?.map((mobile) => <Link key={mobile.id} to={`/${mobile.id}`}><MobileMiniature mobile={mobile} /></Link>)}
+
+        <Suspense fallback={<div>Loading...</div>}>
+          {filteredMobilesList.map((mobile) => (
+            <Link key={mobile.id} to={`/${mobile.id}`}><MobileMiniature mobile={mobile} /></Link>
+          ))}
+        </Suspense>
+
       </section>
-      <ThemeProvider theme={theme}>
-        <Stack spacing={2} className="mobileList__pagination">
-          <Pagination
-            count={totalCount}
-            onChange={(event, value) => handlePaginationChange(event, value)}
-            page={currentPage}
-            size="small"
-            showFirstButton
-            showLastButton
-            color="primary"
-          />
-        </Stack>
-      </ThemeProvider>
     </div>
   );
 }
