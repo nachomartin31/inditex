@@ -1,11 +1,8 @@
-import {
-  Suspense, lazy, useState, useEffect
-} from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { filterMobilesList } from '../redux/slices/filteredMobilesList';
-
-const MobileMiniature = lazy(() => import('./MobileMiniature'));
+import MobileMiniature from './MobileMiniature';
 
 function MobilesList() {
   const [searching, setSearching] = useState('');
@@ -41,11 +38,9 @@ function MobilesList() {
       </div>
       <section className="mobileList__content">
 
-        <Suspense fallback={<div>Loading...</div>}>
-          {filteredMobilesList.map((mobile) => (
-            <Link key={mobile.id} to={`/${mobile.id}`}><MobileMiniature mobile={mobile} /></Link>
-          ))}
-        </Suspense>
+        {filteredMobilesList.map((mobile) => (
+          <Link key={mobile.id} to={`/${mobile.id}`}><MobileMiniature mobile={mobile} /></Link>
+        ))}
 
       </section>
     </div>
