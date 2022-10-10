@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import '../styles/mobileMiniature.scss';
 
 function MobileMiniature({ mobile }) {
   return (
     <div className="miniature">
-      <img src={mobile.imgUrl} alt={mobile.model} loading="lazy" />
+      <LazyLoadImage src={mobile.imgUrl} alt={mobile.model} />
       <p>{mobile.brand}</p>
       <p>{mobile.model}</p>
       {mobile.price
