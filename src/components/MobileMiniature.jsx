@@ -4,7 +4,7 @@ import '../styles/mobileMiniature.scss';
 function MobileMiniature({ mobile }) {
   return (
     <div className="miniature">
-      <img src={mobile.imgUrl} alt={mobile.model} />
+      <img src={mobile.imgUrl} alt={mobile.model} loading="lazy" />
       <p>{mobile.brand}</p>
       <p>{mobile.model}</p>
       {mobile.price
