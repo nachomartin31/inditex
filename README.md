@@ -10,7 +10,7 @@ En esta aplicación se puede encontrar:
 * Unit testing (Jest)
 * Redux
 * Dinamic import
-*Lazy loading
+* Lazy loading
 * Environment variables
 * LocalStorage
 * Cookies
