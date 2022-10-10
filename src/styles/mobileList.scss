@@ -1,46 +1,98 @@
-@use './variables' as *;
+@use "./variables" as *;
 
-a{
-    width: fit-content;
-    text-decoration: none;
-}
-.mobileList{
-    width: 90%;
-    margin: 2vh auto;
-
-    &__heading{
-        text-align: center;
-        padding: 2vh 0;
-    }
-
-    &__content{
-        display: grid;
-        a{
-        margin: 1vh auto;
-        padding: 1vh;
-        }
-    }
-
-    &__pagination{
-        width: fit-content;
-        margin: 0 auto;
-    }
+a {
+  width: fit-content;
+  text-decoration: none;
 }
 
+input[type="text"] {
+  background-color: $blue;
+  color: $darker-blue;
+  font-weight: 700;
+  border: none;
+  padding: 0.5vh;
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
+}
+
+.mobileList {
+  width: 90%;
+  margin: 2vh auto;
+  display: flex;
+  flex-direction: column;
+
+  &__searcher {
+    position: relative;
+    align-self: flex-end;
+    width: 20vw;
+  }
+  &__search {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    border: 1px solid $blue;
+    max-height: 10vh;
+    overflow: auto;
+    width: 100%;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $blue;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $gray-blue;
+    }
+
+    a {
+      width: 100%;
+      background-color: $white;
+
+      text-align: center;
+      &:hover {
+        background-color: $blue;
+      }
+    }
+  }
+
+  &__heading {
+    text-align: center;
+    padding: 2vh 0;
+  }
+
+  &__content {
+    display: grid;
+    a {
+      margin: 1vh auto;
+      padding: 1vh;
+    }
+  }
+}
 
 @media (min-width: $mobile) {
-    .mobileList__content{
-        grid-template-columns: repeat(2, 1fr);
-
-    }
+  .mobileList__content {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (min-width: $tablet) {
-    .mobileList__content{
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .mobileList__searcher {
+    width: 40vw;
+  }
+
+  .mobileList__content {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 @media (min-width: $desktop) {
-    .mobileList__content{
-        grid-template-columns: repeat(4, 1fr);
-    }
+  .mobileList__searcher {
+    width: 20vw;
+  }
+  .mobileList__content {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
