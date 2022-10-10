@@ -9,6 +9,8 @@ En esta aplicación se puede encontrar:
 * SASS
 * Unit testing (Jest)
 * Redux
+* Dinamic import
+*Lazy loading
 * Environment variables
 * LocalStorage
 * Cookies
