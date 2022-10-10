@@ -6,8 +6,8 @@ Este repositorio contiene la prueba técnica realizada para la posición fronten
 En esta aplicación se puede encontrar:
 * BEM
 * Semantic HTML
-* Unit testing (Jest)
 * SASS
+* Unit testing (Jest)
 * Redux
 * Environment variables
 * LocalStorage
